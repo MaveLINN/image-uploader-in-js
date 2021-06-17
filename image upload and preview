@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script>
+  function appendImagetodiv(vb) {
+    let ele = document.getElementById("taskresult");
+    var image = new Image();
+    image.src = vb;
+    ele.appendChild(image);
+}
+  </script>
+  </head>
+<body>
+
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  <div id="gg">
+    
+  </div>
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="upload">
+    <div id="taskresult">
+      </div>
+</form>
+
+</body>
+    <script>
+    
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+document.getElementById('upload').addEventListener('change', readFileAsString)
+async function readFileAsString() {
+    var files = this.files;
+    if (files.length === 0) {
+        console.log('No file is selected');
+        return;
+    }
+
+  var iBase64 = await toBase64(files[0]);
+  
+  console.log(iBase64);
+  appendImagetodiv(iBase64);
+}
+    
+  </script>
+</html>
